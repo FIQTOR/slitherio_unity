@@ -13,10 +13,6 @@ public class Controller : MonoBehaviour
     {
         RotateToMouse();
         Movement();
-        BodyMovement();
-
-        if(Input.GetKey(KeyCode.F))
-            AddBodyPart();
     }
 
     void RotateToMouse()

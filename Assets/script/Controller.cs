@@ -20,8 +20,7 @@ public class Controller : MonoBehaviour
         Movement();
         BodyMovement();
 
-        if(Input.GetKey(KeyCode.F))
-            AddBodyParts();
+        StartCoroutine("spawnFood");
     }
 
     void RotateToMouse()
@@ -72,6 +71,30 @@ public class Controller : MonoBehaviour
             newBody.GetComponent<SpriteRenderer>().sortingOrder = (0 - 1 - BodyParts.Count);
 
             BodyParts.Add(newBody.transform);
+        }
+    }
+
+    public float foodSpawnTime;
+    public GameObject foodPrefab;
+
+    private IEnumerator spawnFood()
+    {
+        yield return new WaitForSeconds(foodSpawnTime);
+
+        Vector2 RandomPos = new Vector2(Random.Range(transform.position.x - 20, transform.position.x + 20), Random.Range(transform.position.y - 20, transform.position.y + 20));
+
+        Instantiate(foodPrefab, RandomPos, Quaternion.identity);
+
+        StopCoroutine("spawnFood");
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "food")
+        {
+            Destroy(col.gameObject);
+
+            AddBodyParts();
         }
     }
 }

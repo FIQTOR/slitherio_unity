@@ -230,6 +230,8 @@ GameObject:
   - component: {fileID: 1816310410}
   - component: {fileID: 1816310409}
   - component: {fileID: 1816310408}
+  - component: {fileID: 1816310412}
+  - component: {fileID: 1816310411}
   m_Layer: 0
   m_Name: default_head
   m_TagString: Untagged
@@ -254,6 +256,9 @@ MonoBehaviour:
   bodyPrefab: {fileID: 2954982098904013203, guid: f0e9815de2787be4992ff78689b96194,
     type: 3}
   bodyFollowSpeed: 0.2
+  foodSpawnTime: 0.1
+  foodPrefab: {fileID: 2731820461323901915, guid: 45d4a41d6d64c0f4d99e4933924f95d6,
+    type: 3}
 --- !u!212 &1816310409
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -318,3 +323,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1816310411
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816310407}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &1816310412
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816310407}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,9 @@ public class Controller : MonoBehaviour
 
     public GameObject bodyPrefab;
     public float bodyFollowSpeed;
+
+    public float sensitivityGrowing;
+    private float currentSize = 1;
 
     private List<Transform> BodyParts = new List<Transform>();
 
@@ -72,6 +75,21 @@ public class Controller : MonoBehaviour
 
             BodyParts.Add(newBody.transform);
         }
+
+        Growing();
+    }
+
+    void Growing()
+    {
+        currentSize += sensitivityGrowing;
+        transform.localScale = Vector3.one * currentSize;
+
+        foreach(Transform body in BodyParts)
+        {
+            body.localScale = transform.localScale;
+        }
+
+        bodyFollowSpeed = (movementSpeed / 15) / currentSize;
     }
 
     public float foodSpawnTime;

@@ -256,6 +256,7 @@ MonoBehaviour:
   bodyPrefab: {fileID: 2954982098904013203, guid: f0e9815de2787be4992ff78689b96194,
     type: 3}
   bodyFollowSpeed: 0.2
+  sensitivityGrowing: 0.05
   foodSpawnTime: 0.1
   foodPrefab: {fileID: 2731820461323901915, guid: 45d4a41d6d64c0f4d99e4933924f95d6,
     type: 3}
@@ -359,4 +360,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7

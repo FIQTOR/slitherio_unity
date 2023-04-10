@@ -9,8 +9,14 @@ public class CameraMovement : MonoBehaviour
     public Transform target;
 
     private Vector3 velocity;
+    private float cameraOrtographicSize;
+    void Awake()
+    {
+        cameraOrtographicSize = GetComponent<Camera>().orthographicSize;
+    }
     void FixedUpdate()
     {
+        GetComponent<Camera>().orthographicSize = cameraOrtographicSize + target.localScale.y;
         transform.position = Vector3.SmoothDamp(transform.position, new Vector3(target.position.x, target.position.y, transform.position.z), ref velocity, smoothFollow);
     }
 }

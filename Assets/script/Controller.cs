@@ -5,22 +5,33 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public float rotationSensitivity;
-    public float movementSpeed;
+    private float movementSpeed;
+    public float normalSpeed;
+    public float boostSpeed;
 
     private Vector3 mousePos;
 
     public GameObject bodyPrefab;
-    public float bodyFollowSpeed;
+    private float bodyFollowSpeed;
+    public float normalFollowSpeed;
+    public float boostFollowSpeed;
 
     public float sensitivityGrowing;
     private float currentSize = 1;
 
     private List<Transform> BodyParts = new List<Transform>();
 
+    void Start()
+    {
+        movementSpeed = normalSpeed;
+        bodyFollowSpeed = normalFollowSpeed;
+    }
+
     void FixedUpdate()
     {
         RotateToMouse();
         Movement();
+        BoostMovement();
         BodyMovement();
 
         StartCoroutine("spawnFood");
@@ -38,6 +49,29 @@ public class Controller : MonoBehaviour
     void Movement()
     {
         transform.position += transform.up * movementSpeed * Time.deltaTime;
+    }
+
+    private bool Boost;
+    void BoostMovement()
+    {
+        if(Boost != false)
+        {
+            if(!Input.GetMouseButton(0))
+            {
+                movementSpeed = normalSpeed;
+                bodyFollowSpeed = normalFollowSpeed;
+                Boost = false;
+            }
+        }
+        else
+        {
+            if(Input.GetMouseButton(0))
+            {
+                movementSpeed = boostSpeed;
+                bodyFollowSpeed = boostFollowSpeed;
+                Boost = true;
+            }
+        }
     }
 
     void BodyMovement()
@@ -83,13 +117,27 @@ public class Controller : MonoBehaviour
     {
         currentSize += sensitivityGrowing;
         transform.localScale = Vector3.one * currentSize;
+        
+        normalFollowSpeed = (normalSpeed / 15) / currentSize;
+        boostFollowSpeed = (boostSpeed / (15 + boostSpeed - normalSpeed) / currentSize);
+        if(Boost != true)
+        {
+            movementSpeed = normalSpeed;
+        }
+        else
+        {
+            movementSpeed = boostSpeed;
+        }
 
         foreach(Transform body in BodyParts)
         {
             body.localScale = transform.localScale;
         }
 
-        bodyFollowSpeed = (movementSpeed / 15) / currentSize;
+        if(rotationSensitivity > 0.5f)
+        {
+            rotationSensitivity -= 0.01f;
+        }
     }
 
     public float foodSpawnTime;
